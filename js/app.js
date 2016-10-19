@@ -28,7 +28,7 @@ $(function() {
 	};
 
 	// add item by entering text and clicking "Add Item" button
-	$('form').submit(function() {
+	$('form').submit(function(event) {
 		// test:
 		console.log('you\'ve entered '+user_entry.val() + ' then clicked \'Add Item\'');
 	    // function to add new item at top of list
@@ -39,7 +39,7 @@ $(function() {
     
 
 	// add item by entering text and hitting "Return" (key code 13)
-	$('#shopping-list-entry').keydown(function(){
+	$('#shopping-list-entry').keydown(function(event){
         if ( event.which == 13 ) {
 			// test:
 			console.log('you\'ve entered '+user_entry.val() + ' then pressed Return');
@@ -68,12 +68,12 @@ $(function() {
 		// 		.css('display', 'none');
 		//$( "shopping-item-toggle" ).closest(".button-label").text('hi');
 
-		$( event.target ).closest('.shopping-item' ).css( 'background-color', 'yellow' );
+//		$( event.target ).closest('.shopping-item' ).css( 'background-color', 'yellow' );
 //		$( event.target ).closest('span', '.shopping-item' ).toggleClass( 'shopping-item__checked' )
 //		$( event.target ).closest('span').css( 'background-color', 'yellow' );
 
 		// test:
-		// alert('hi');
+		 alert('hi');
 	});
 
 
