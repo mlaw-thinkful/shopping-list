@@ -30,59 +30,17 @@ $(function() {
 		- finally, reset user_entry, disable "Add item" button, and return 'false' to prevent button from submitting the form
 		  -- another way to prevent the button from submitting the form is to specify its type as type="button" (http://w3c.github.io/html-reference/button.html)
 	*/
+
 	
-	var user_entry = $("input[type='text']");
-	user_entry.val('');
-
-	$('#js-shopping-list-form button').attr('disabled', 'disabled');
-	$('#shopping-list-entry').on('keypress', function() {
-		console.log('user_entry.val().length === ' + user_entry.val().length);
-		if (user_entry.val().length >= 0 ) {
-			$('#js-shopping-list-form button').removeAttr('disabled');
-		}
-	});
-
-	function prependItem() {
-		// if (user_entry.val().length === 0 ) {
-		       // NOTE: I've commented out the if/else bits because lines 39-45 made them obsolete - yay!
-	 	// } else {
-			$('.shopping-list').prepend('\
-				<li>\
-				<span class="shopping-item">' + user_entry.val() + '</span>\
-				<div class="shopping-item-controls">\
-				  <button class="shopping-item-toggle">\
-				    <span class="button-label">check</span>\
-				  </button>\
-				  <button class="shopping-item-delete">\
-				    <span class="button-label">delete</span>\
-				  </button>\
-				</div>\
-				</li>'
-			);
-	    // }
-
-	    user_entry.val('');
-    	$('#js-shopping-list-form button').attr('disabled', 'disabled');
-	    return false;
-	};
-
-	// add item by entering text and clicking "Add Item" button
+		// add item by entering text and clicking "Add Item" button
 	$('form').submit(function(event) {
-	    // test:
-		console.log('you entered '+user_entry.val() + ' then clicked \'Add item\'');
-		prependItem();
-		event.preventDefault(); // cancels default submit() action
+		// cancels default submit() action
+		event.preventDefault();
+		var user_entry = $("input[type='text']").val();
+		prependItem(user_entry);
+		$("input[type='text']").val('');
+		 
 	});
-    
-	// add item by entering text and hitting "Return" (key code 13)
-	$('#shopping-list-entry').keydown(function(event){
-        if ( event.which == 13 ) {
-			// test:
-			console.log('you\'ve entered '+user_entry.val() + ' then pressed Return');
-		    prependItem();
-			event.preventDefault();
-    	}
-    });
 
 	// check and uncheck items on the list by clicking the "Check" button
 	$('.shopping-list').on('click', 'button.shopping-item-toggle', (function(event) {
@@ -95,5 +53,21 @@ $(function() {
 	}));
 
 });
+
+function prependItem(entry) {
+	$('.shopping-list').prepend('\
+		<li>\
+		<span class="shopping-item">' + entry + '</span>\
+		<div class="shopping-item-controls">\
+		  <button class="shopping-item-toggle">\
+		    <span class="button-label">check</span>\
+		  </button>\
+		  <button class="shopping-item-delete">\
+		    <span class="button-label">delete</span>\
+		  </button>\
+		</div>\
+		</li>'
+	);
+};
 
 
